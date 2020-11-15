@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jacobi method</title>
+    <script src="Jacobi.js"></script>
+    <script src="script.js"></script>
+    <style>
+        .container {
+            max-width: 640px;
+            margin: auto;
+            padding: 15px;
+        }
+
+        .form textarea {
+            display: block;
+            resize: vertical;
+            width: 100%;
+            max-height: 400px;
+            min-height: 200px;
+        }
+
+        .form button {
+            margin-top: 20px;
+            width: 100px;
+            text-align: center;
+            margin-left: calc(100% - 100px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form class="form" >
+        <textarea></textarea>
+        <button type="submit">Calc</button>
+    </form>
+    <div class="result"></div>
+</div>
+</body>
+</html>
