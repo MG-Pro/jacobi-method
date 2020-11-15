@@ -1,27 +1,23 @@
 class Jacobi {
     tempX = [];
-
     norma = 1; // норма, определяемая как наибольшая разность компонент столбца иксов соседних итераций.
+    eps = 0.001; // заданная точность
 
-    eps = 0.001;
-
-    calc(matrixA, vectorB) {
-        // заданная точность
-
-        const vectorX = this.initVectorX(vectorB.length); // Начальное приближение всегда равно 1
+    calc(matrix, rightSideVector) {
+        const vectorX = this.initVectorX(rightSideVector.length); // Начальное приближение всегда равно 1
 
         while (this.norma > this.eps) {
-            for (let i = 0; i < vectorB.length; i++) {
-                this.tempX[i] = vectorB[i];
-                for (let j = 0; j < vectorB.length; j++) {
+            for (let i = 0; i < rightSideVector.length; i++) {
+                this.tempX[i] = rightSideVector[i];
+                for (let j = 0; j < rightSideVector.length; j++) {
                     if (i !== j) {
-                        this.tempX[i] -= matrixA[i][j] * vectorX[j];
+                        this.tempX[i] -= matrix[i][j] * vectorX[j];
                     }
                 }
-                this.tempX[i] /= matrixA[i][i]
+                this.tempX[i] /= matrix[i][i]
             }
             this.norma = Math.abs(vectorX[0] - this.tempX[0]);
-            for (let i = 0; i < vectorB.length; i++) {
+            for (let i = 0; i < rightSideVector.length; i++) {
                 let res = Math.abs(vectorX[i] - this.tempX[i]);
                 if (res > this.norma) {
                     this.norma = res;
@@ -29,6 +25,7 @@ class Jacobi {
                 vectorX[i] = parseFloat((this.tempX[i]).toFixed(4));
             }
         }
+
         return vectorX;
     }
 
@@ -63,6 +60,6 @@ class Jacobi {
             }
         }
 
-        return isOneLine ? matrix[0] : matrix;
+        return isOneLine ? matrix.flat() : matrix;
     }
 }

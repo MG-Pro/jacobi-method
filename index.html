@@ -12,12 +12,20 @@
             padding: 15px;
         }
 
+        .form__field {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
         .form textarea {
             display: block;
-            resize: vertical;
+            resize: none;
             width: 100%;
-            max-height: 400px;
-            min-height: 200px;
+            height: 250px;
+            outline: none;
+        }
+        .form textarea:last-child {
+            width: 20%;
         }
 
         .form button {
@@ -31,7 +39,11 @@
 <body>
 <div class="container">
     <form class="form" >
-        <textarea></textarea>
+        <div class="form__field">
+            <textarea></textarea>
+            <textarea></textarea>
+        </div>
+
         <button type="submit">Calc</button>
     </form>
     <div class="result"></div>
