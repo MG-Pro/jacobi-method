@@ -40,17 +40,19 @@ function setDefVals(form) {
 }
 
 function calc(matrix, rightSideVector) {
-    const tempX = [];
     const EPS = 0.001; // заданная точность
 
-    let counter = 0;
-    let norma = 1; // норма, определяемая как наибольшая разность компонент столбца иксов соседних итераций.
+    const tempX = []; // временное хранилище для итерируемого вида
+    const resultVector = new Array(rightSideVector.length).fill(1); // начальное приближение
 
-    const resultVector = new Array(rightSideVector.length).fill(0); // Начальное приближение
+    let counter = 0; // счетчик итераций
+    let norma = 1; // норма, наибольшая разность компонент столбца иксов соседних итераций
 
-    while(norma > EPS) {
-        for (let i = 0; i < rightSideVector.length; i++) {
+    while(norma > EPS) { // продолжаем итерации пока норма будет станет больше заданной точности
+        // получаем итерируемый вид в tempX
+        for (let i = 0; i < rightSideVector.length; i++) { // проходим по строкам матрицы
             tempX[i] = rightSideVector[i];
+
             for (let j = 0; j < rightSideVector.length; j++) {
                 if (i !== j) {
                     tempX[i] -= matrix[i][j] * resultVector[j];
@@ -58,19 +60,23 @@ function calc(matrix, rightSideVector) {
             }
             tempX[i] /= matrix[i][i];
         }
-
+        // вычисляем начальное значение нормы на текущей итерации
         norma = Math.abs(resultVector[0] - tempX[0]);
+
         for (let i = 0; i < rightSideVector.length; i++) {
+            // вычисляем наибольшую разность компонент столбца иксов соседних итераций
             let res = Math.abs(resultVector[i] - tempX[i]);
             if (res > norma) {
                 norma = res;
             }
+
+            // перезаписываем результат итерации
             resultVector[i] = parseFloat((tempX[i]).toFixed(4));
         }
-        counter++;
+        counter++; // увеличиваем счетчик итераций
     }
 
-    return {
+    return { // возвращаем результат и счетчик
         counter,
         resultVector,
     };
@@ -81,6 +87,7 @@ function textToMatrixWrapper(text, isOneLine = false) {
     const lines = text.split('\n');
     const matrix = [];
     let k = 0;
+
     for (let i = 0; i < lines.length; i++) {
         lines[i] = lines[i].split(delim);
         let l = 0;
