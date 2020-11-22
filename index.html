@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Jacobi method</title>
-    <script src="Jacobi.js"></script>
     <script src="script.js"></script>
     <style>
         .container {
-            max-width: 640px;
+            max-width: 480px;
             margin: auto;
             padding: 15px;
         }
@@ -17,28 +16,37 @@
             flex-wrap: nowrap;
         }
 
-        .form textarea {
+        #form textarea {
             display: block;
             resize: none;
             width: 100%;
-            height: 250px;
+            height: 100px;
             outline: none;
         }
-        .form textarea:last-child {
+        #form textarea:last-child {
             width: 20%;
+            border-left: none;
         }
 
-        .form button {
+        #form button {
             margin-top: 20px;
             width: 100px;
             text-align: center;
             margin-left: calc(100% - 100px);
         }
+
+        #result p:first-child:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #000000;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <form class="form" >
+    <form id="form" >
         <div class="form__field">
             <textarea></textarea>
             <textarea></textarea>
@@ -46,7 +54,7 @@
 
         <button type="submit">Calc</button>
     </form>
-    <div class="result"></div>
+    <div id="result"></div>
 </div>
 </body>
 </html>
